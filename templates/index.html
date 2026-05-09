@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Dashboard Rentabilidad
+    </title>
+
+    <!-- BOOTSTRAP -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- DATATABLES -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
+    >
+
+    <!-- CSS -->
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/styles.css') }}"
+    >
+
+</head>
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+
+        <div class="container-fluid">
+
+            <a
+                class="navbar-brand fw-bold"
+                href="#"
+            >
+
+                Dashboard SuperStore
+
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- CONTENEDOR -->
+
+    <div class="container-fluid">
+
+        <div class="row">
+
+
+            <!-- SIDEBAR -->
+
+            <div class="col-md-2 sidebar p-4">
+
+                <h4 class="text-white mb-4">
+
+                    Menú
+
+                </h4>
+
+                <ul class="nav flex-column">
+
+                    <li class="nav-item mb-3">
+
+                        <a
+                            class="nav-link text-white"
+                            href="#"
+                        >
+
+                            📊 Dashboard
+
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item mb-3">
+
+                        <a
+                            class="nav-link text-white"
+                            href="#"
+                        >
+
+                            💰 Rentabilidad
+
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item mb-3">
+
+                        <a
+                            class="nav-link text-white"
+                            href="#"
+                        >
+
+                            📉 Pérdidas
+
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- CONTENIDO -->
+
+            <div class="col-md-10 p-4">
+
+
+                <!-- TITULO -->
+
+                <div class="mb-4">
+
+                    <h1>
+
+                        Dashboard de Rentabilidad y Pérdidas
+
+                    </h1>
+
+                    <h6 class="text-muted">
+
+                        Datos analizados desde PostgreSQL
+
+                    </h6>
+
+                </div>
+
+
+                <!-- FILTROS -->
+
+                <div class="row g-3 mb-4">
+
+
+                    <!-- REGION -->
+
+                    <div class="col-md-3">
+
+                        <select
+                            id="region"
+                            class="form-select"
+                        >
+
+                            <option value="all">
+                                Todas las regiones
+                            </option>
+
+                            <option value="West">
+                                West
+                            </option>
+
+                            <option value="East">
+                                East
+                            </option>
+
+                            <option value="Central">
+                                Central
+                            </option>
+
+                            <option value="South">
+                                South
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- CATEGORIA -->
+
+                    <div class="col-md-3">
+
+                        <select
+                            id="categoria"
+                            class="form-select"
+                        >
+
+                            <option value="all">
+                                Todas las categorías
+                            </option>
+
+                            <option value="Furniture">
+                                Furniture
+                            </option>
+
+                            <option value="Office Supplies">
+                                Office Supplies
+                            </option>
+
+                            <option value="Technology">
+                                Technology
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- SUBCATEGORIA -->
+
+                    <div class="col-md-3">
+
+                        <select
+                            id="subcategoria"
+                            class="form-select"
+                        >
+
+                            <option value="all">
+                                Todas las subcategorías
+                            </option>
+
+                            <option value="Bookcases">
+                                Bookcases
+                            </option>
+
+                            <option value="Chairs">
+                                Chairs
+                            </option>
+
+                            <option value="Tables">
+                                Tables
+                            </option>
+
+                            <option value="Phones">
+                                Phones
+                            </option>
+
+                            <option value="Storage">
+                                Storage
+                            </option>
+
+                            <option value="Binders">
+                                Binders
+                            </option>
+
+                            <option value="Accessories">
+                                Accessories
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- DESCUENTO -->
+
+                    <div class="col-md-3">
+
+                        <select
+                            id="descuento"
+                            class="form-select"
+                        >
+
+                            <option value="all">
+                                Todos los descuentos
+                            </option>
+
+                            <option value="0.1">
+                                Mayor a 10%
+                            </option>
+
+                            <option value="0.2">
+                                Mayor a 20%
+                            </option>
+
+                            <option value="0.3">
+                                Mayor a 30%
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- KPIS -->
+
+                <div class="row g-4 mb-4">
+
+
+                    <div class="col-md-3">
+
+                        <div class="card kpi-card p-4 text-center shadow-sm">
+
+                            <h5>
+                                Ganancia Total
+                            </h5>
+
+                            <h3 id="gananciaTotal"></h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-3">
+
+                        <div class="card kpi-card p-4 text-center shadow-sm">
+
+                            <h5>
+                                Pérdida Total
+                            </h5>
+
+                            <h3 id="perdidaTotal"></h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-3">
+
+                        <div class="card kpi-card p-4 text-center shadow-sm">
+
+                            <h5>
+                                Productos con pérdida
+                            </h5>
+
+                            <h3 id="productosPerdida"></h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-3">
+
+                        <div class="card kpi-card p-4 text-center shadow-sm">
+
+                            <h5>
+                                Descuento promedio
+                            </h5>
+
+                            <h3 id="descuentoPromedio"></h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- GRAFICOS -->
+
+                <div class="row">
+
+
+                    <div class="col-md-6 mb-4">
+
+                        <div class="card p-4 shadow-sm">
+
+                            <h5 class="mb-3 text-center">
+
+                                Ganancia por Categoría
+
+                            </h5>
+
+                            <canvas id="chart1"></canvas>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-6 mb-4">
+
+                        <div class="card p-4 shadow-sm">
+
+                            <h5 class="mb-3 text-center">
+
+                                Pérdidas por Región
+
+                            </h5>
+
+                            <canvas id="chart2"></canvas>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- GRAFICOS 2 -->
+
+                <div class="row">
+
+
+                    <div class="col-md-6 mb-4">
+
+                        <div class="card p-4 shadow-sm">
+
+                            <h5 class="mb-3 text-center">
+
+                                Descuento Promedio por Subcategoría
+
+                            </h5>
+
+                            <canvas id="chart3"></canvas>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-6 mb-4">
+
+                        <div class="card p-4 shadow-sm">
+
+                            <h5 class="mb-3 text-center">
+
+                                Productos con Mayor Pérdida
+
+                            </h5>
+
+                            <canvas id="chart4"></canvas>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TABLA -->
+
+                <div class="card p-4 shadow-sm mb-5">
+
+                    <h5 class="mb-4">
+
+                        Tabla de Productos con Pérdida
+
+                    </h5>
+
+                    <div class="table-responsive">
+
+                        <table
+                            id="tablaPerdidas"
+                            class="display"
+                            style="width:100%"
+                        >
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Producto</th>
+                                    <th>Categoría</th>
+                                    <th>Subcategoría</th>
+                                    <th>Región</th>
+                                    <th>Ventas</th>
+                                    <th>Descuento</th>
+                                    <th>Ganancia</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FOOTER -->
+
+                <footer class="text-center mb-3">
+
+                    <p class="text-muted">
+
+                        Proyecto BDII - Dashboard SuperStore
+
+                    </p>
+
+                </footer>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- JQUERY -->
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+
+    <!-- DATATABLES -->
+
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+
+    <!-- CHART -->
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <!-- BOOTSTRAP -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <!-- SCRIPT -->
+
+    <script
+        src="{{ url_for('static', filename='js/script.js') }}"
+    ></script>
+
+</body>
+
+</html>
