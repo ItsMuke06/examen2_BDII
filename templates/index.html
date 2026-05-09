@@ -5,35 +5,25 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
+
         Dashboard Rentabilidad
+
     </title>
 
     <!-- BOOTSTRAP -->
 
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- DATATABLES -->
 
-    <link
-        rel="stylesheet"
-        href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
-    >
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 
     <!-- CSS -->
 
-    <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='css/styles.css') }}"
-    >
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 
 </head>
 
@@ -42,25 +32,66 @@
 
     <!-- NAVBAR -->
 
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
 
         <div class="container-fluid">
 
-            <a
-                class="navbar-brand fw-bold"
-                href="#"
-            >
+            <a class="navbar-brand fw-bold" href="#">
 
                 Dashboard SuperStore
 
             </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item">
+
+                        <a class="nav-link active" href="#">
+
+                            Inicio
+
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link" href="#graficos">
+
+                            Gráficos
+
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link" href="#tabla">
+
+                            Tabla
+
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </div>
 
         </div>
 
     </nav>
 
 
-    <!-- CONTENEDOR -->
+    <!-- CONTENIDO -->
 
     <div class="container-fluid">
 
@@ -77,55 +108,49 @@
 
                 </h4>
 
-                <ul class="nav flex-column">
+                <div class="d-flex flex-column gap-3">
 
-                    <li class="nav-item mb-3">
+                    <button class="btn btn-sidebar active" onclick="window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        })">
 
-                        <a
-                            class="nav-link text-white"
-                            href="#"
-                        >
+                        📊 Dashboard
 
-                            📊 Dashboard
+                    </button>
 
-                        </a>
+                    <button class="btn btn-sidebar" onclick="document.getElementById('graficos')
+                        .scrollIntoView({
+                            behavior: 'smooth'
+                        })">
 
-                    </li>
+                        💰 Rentabilidad
 
-                    <li class="nav-item mb-3">
+                    </button>
 
-                        <a
-                            class="nav-link text-white"
-                            href="#"
-                        >
+                    <button class="btn btn-sidebar" onclick="document.getElementById('tabla')
+                        .scrollIntoView({
+                            behavior: 'smooth'
+                        })">
 
-                            💰 Rentabilidad
+                        📉 Pérdidas
 
-                        </a>
+                    </button>
 
-                    </li>
+                    <button class="btn btn-sidebar" onclick="alert('Reporte generado correctamente')">
 
-                    <li class="nav-item mb-3">
+                        📋 Reportes
 
-                        <a
-                            class="nav-link text-white"
-                            href="#"
-                        >
+                    </button>
 
-                            📉 Pérdidas
-
-                        </a>
-
-                    </li>
-
-                </ul>
+                </div>
 
             </div>
 
 
-            <!-- CONTENIDO -->
+            <!-- MAIN -->
 
-            <div class="col-md-10 p-4">
+            <div class="col-md-10 p-5">
 
 
                 <!-- TITULO -->
@@ -156,29 +181,36 @@
 
                     <div class="col-md-3">
 
-                        <select
-                            id="region"
-                            class="form-select"
-                        >
+                        <select id="region" class="form-select">
 
                             <option value="all">
+
                                 Todas las regiones
+
                             </option>
 
                             <option value="West">
+
                                 West
+
                             </option>
 
                             <option value="East">
+
                                 East
+
                             </option>
 
                             <option value="Central">
+
                                 Central
+
                             </option>
 
                             <option value="South">
+
                                 South
+
                             </option>
 
                         </select>
@@ -190,25 +222,30 @@
 
                     <div class="col-md-3">
 
-                        <select
-                            id="categoria"
-                            class="form-select"
-                        >
+                        <select id="categoria" class="form-select">
 
                             <option value="all">
+
                                 Todas las categorías
+
                             </option>
 
                             <option value="Furniture">
+
                                 Furniture
+
                             </option>
 
                             <option value="Office Supplies">
+
                                 Office Supplies
+
                             </option>
 
                             <option value="Technology">
+
                                 Technology
+
                             </option>
 
                         </select>
@@ -220,41 +257,54 @@
 
                     <div class="col-md-3">
 
-                        <select
-                            id="subcategoria"
-                            class="form-select"
-                        >
+                        <select id="subcategoria" class="form-select">
 
                             <option value="all">
+
                                 Todas las subcategorías
+
                             </option>
 
                             <option value="Bookcases">
+
                                 Bookcases
+
                             </option>
 
                             <option value="Chairs">
+
                                 Chairs
+
                             </option>
 
                             <option value="Tables">
+
                                 Tables
+
                             </option>
 
                             <option value="Phones">
+
                                 Phones
+
                             </option>
 
                             <option value="Storage">
+
                                 Storage
+
                             </option>
 
                             <option value="Binders">
+
                                 Binders
+
                             </option>
 
                             <option value="Accessories">
+
                                 Accessories
+
                             </option>
 
                         </select>
@@ -266,25 +316,30 @@
 
                     <div class="col-md-3">
 
-                        <select
-                            id="descuento"
-                            class="form-select"
-                        >
+                        <select id="descuento" class="form-select">
 
                             <option value="all">
+
                                 Todos los descuentos
+
                             </option>
 
                             <option value="0.1">
+
                                 Mayor a 10%
+
                             </option>
 
                             <option value="0.2">
+
                                 Mayor a 20%
+
                             </option>
 
                             <option value="0.3">
+
                                 Mayor a 30%
+
                             </option>
 
                         </select>
@@ -296,15 +351,19 @@
 
                 <!-- KPIS -->
 
-                <div class="row g-4 mb-4">
+                <div class="row g-4 mb-5">
 
+
+                    <!-- KPI 1 -->
 
                     <div class="col-md-3">
 
                         <div class="card kpi-card p-4 text-center shadow-sm">
 
                             <h5>
+
                                 Ganancia Total
+
                             </h5>
 
                             <h3 id="gananciaTotal"></h3>
@@ -314,12 +373,16 @@
                     </div>
 
 
+                    <!-- KPI 2 -->
+
                     <div class="col-md-3">
 
                         <div class="card kpi-card p-4 text-center shadow-sm">
 
                             <h5>
+
                                 Pérdida Total
+
                             </h5>
 
                             <h3 id="perdidaTotal"></h3>
@@ -329,12 +392,16 @@
                     </div>
 
 
+                    <!-- KPI 3 -->
+
                     <div class="col-md-3">
 
                         <div class="card kpi-card p-4 text-center shadow-sm">
 
                             <h5>
+
                                 Productos con pérdida
+
                             </h5>
 
                             <h3 id="productosPerdida"></h3>
@@ -344,12 +411,16 @@
                     </div>
 
 
+                    <!-- KPI 4 -->
+
                     <div class="col-md-3">
 
                         <div class="card kpi-card p-4 text-center shadow-sm">
 
                             <h5>
+
                                 Descuento promedio
+
                             </h5>
 
                             <h3 id="descuentoPromedio"></h3>
@@ -363,14 +434,16 @@
 
                 <!-- GRAFICOS -->
 
-                <div class="row">
+                <div class="row" id="graficos">
 
+
+                    <!-- GRAFICO 1 -->
 
                     <div class="col-md-6 mb-4">
 
                         <div class="card p-4 shadow-sm">
 
-                            <h5 class="mb-3 text-center">
+                            <h5 class="text-center mb-3">
 
                                 Ganancia por Categoría
 
@@ -383,11 +456,13 @@
                     </div>
 
 
+                    <!-- GRAFICO 2 -->
+
                     <div class="col-md-6 mb-4">
 
                         <div class="card p-4 shadow-sm">
 
-                            <h5 class="mb-3 text-center">
+                            <h5 class="text-center mb-3">
 
                                 Pérdidas por Región
 
@@ -402,16 +477,18 @@
                 </div>
 
 
-                <!-- GRAFICOS 2 -->
+                <!-- GRAFICOS FILA 2 -->
 
                 <div class="row">
 
+
+                    <!-- GRAFICO 3 -->
 
                     <div class="col-md-6 mb-4">
 
                         <div class="card p-4 shadow-sm">
 
-                            <h5 class="mb-3 text-center">
+                            <h5 class="text-center mb-3">
 
                                 Descuento Promedio por Subcategoría
 
@@ -424,11 +501,13 @@
                     </div>
 
 
+                    <!-- GRAFICO 4 -->
+
                     <div class="col-md-6 mb-4">
 
                         <div class="card p-4 shadow-sm">
 
-                            <h5 class="mb-3 text-center">
+                            <h5 class="text-center mb-3">
 
                                 Productos con Mayor Pérdida
 
@@ -445,7 +524,7 @@
 
                 <!-- TABLA -->
 
-                <div class="card p-4 shadow-sm mb-5">
+                <div class="card p-4 shadow-sm mb-5" id="tabla">
 
                     <h5 class="mb-4">
 
@@ -455,11 +534,7 @@
 
                     <div class="table-responsive">
 
-                        <table
-                            id="tablaPerdidas"
-                            class="display"
-                            style="width:100%"
-                        >
+                        <table id="tablaPerdidas" class="display" style="width:100%">
 
                             <thead>
 
@@ -478,6 +553,7 @@
                             </thead>
 
                             <tbody>
+
                             </tbody>
 
                         </table>
@@ -516,21 +592,19 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
 
-    <!-- CHART -->
+    <!-- CHART JS -->
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
-    <!-- BOOTSTRAP -->
+    <!-- BOOTSTRAP JS -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 
     <!-- SCRIPT -->
 
-    <script
-        src="{{ url_for('static', filename='js/script.js') }}"
-    ></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
 

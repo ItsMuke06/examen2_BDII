@@ -15,6 +15,10 @@ body {
     color: #1f2937;
 
     overflow-x: hidden;
+
+    margin: 0;
+
+    padding: 0;
 }
 
 
@@ -30,7 +34,13 @@ body {
         #1e293b
     ) !important;
 
-    padding: 14px 20px;
+    padding: 14px 24px;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
 }
 
 
@@ -41,22 +51,8 @@ body {
     font-weight: bold;
 
     letter-spacing: 1px;
-}
 
-
-.nav-link {
-
-    transition: 0.3s;
-
-    border-radius: 8px;
-
-    padding: 8px 14px !important;
-}
-
-
-.nav-link:hover {
-
-    background: rgba(255,255,255,0.1);
+    color: white !important;
 }
 
 
@@ -72,11 +68,15 @@ body {
         #1e293b
     );
 
-    min-height: 100vh;
+    min-height: calc(100vh - 72px);
 
-    border-right: 1px solid rgba(255,255,255,0.08);
+    padding-top: 30px;
 }
 
+
+/* =========================================
+   SIDEBAR TITLE
+========================================= */
 
 .sidebar h4 {
 
@@ -86,25 +86,51 @@ body {
 }
 
 
-.sidebar .nav-link {
+/* =========================================
+   SIDEBAR BUTTONS
+========================================= */
 
-    color: #f8fafc;
+.btn-sidebar {
 
-    padding: 12px 15px;
+    width: 100%;
 
-    border-radius: 12px;
+    text-align: left;
 
-    transition: 0.3s;
+    background: rgba(255,255,255,0.08);
+
+    color: white;
+
+    border: none;
+
+    padding: 14px 16px;
+
+    border-radius: 14px;
 
     font-size: 15px;
+
+    transition: all 0.3s ease;
 }
 
 
-.sidebar .nav-link:hover {
+.btn-sidebar:hover {
 
-    background: rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.18);
 
     transform: translateX(5px);
+
+    color: white;
+}
+
+
+.btn-sidebar.active {
+
+    background: linear-gradient(
+        90deg,
+        #2563eb,
+        #3b82f6
+    );
+
+    font-weight: bold;
 }
 
 
@@ -119,6 +145,8 @@ h1 {
     color: #0f172a;
 
     font-size: 38px;
+
+    margin-bottom: 10px;
 }
 
 
@@ -238,13 +266,9 @@ h6 {
    GRAFICOS
 ========================================= */
 
-.chart-card {
-
-    min-height: 420px;
-}
-
-
 canvas {
+
+    width: 100% !important;
 
     max-height: 320px;
 }
@@ -311,7 +335,7 @@ table.dataTable tbody tr:hover {
 
 
 /* =========================================
-   DATATABLE CONTROLS
+   DATATABLES CONTROLS
 ========================================= */
 
 .dataTables_wrapper .dataTables_filter input {
@@ -321,6 +345,8 @@ table.dataTable tbody tr:hover {
     border: 1px solid #cbd5e1;
 
     padding: 6px 10px;
+
+    margin-left: 8px;
 }
 
 
@@ -435,11 +461,6 @@ footer {
         text-align: center;
     }
 
-    .sidebar .nav-link {
-
-        margin-bottom: 10px;
-    }
-
     h1 {
 
         font-size: 26px;
@@ -448,5 +469,10 @@ footer {
     .card {
 
         margin-bottom: 15px;
+    }
+
+    .btn-sidebar {
+
+        text-align: center;
     }
 }
