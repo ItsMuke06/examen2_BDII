@@ -181,6 +181,8 @@ h6 {
     border-color: #2563eb;
 
     box-shadow: 0px 0px 10px rgba(37,99,235,0.25);
+
+    outline: none;
 }
 
 
@@ -199,6 +201,8 @@ h6 {
     transition: all 0.3s ease;
 
     overflow: hidden;
+
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.05);
 }
 
 
@@ -282,19 +286,23 @@ canvas {
 
     border-radius: 15px;
 
-    overflow: hidden;
+    overflow-x: auto;
+
+    background: white;
 }
 
 
-table.dataTable {
+#tablaPerdidas {
 
-    border-collapse: collapse !important;
+    width: 100%;
 
-    width: 100% !important;
+    border-collapse: collapse;
+
+    background: white;
 }
 
 
-table.dataTable thead {
+#tablaPerdidas thead {
 
     background: linear-gradient(
         90deg,
@@ -306,77 +314,35 @@ table.dataTable thead {
 }
 
 
-table.dataTable thead th {
+#tablaPerdidas thead th {
 
     padding: 14px;
 
     font-size: 14px;
+
+    text-align: left;
 }
 
 
-table.dataTable tbody td {
+#tablaPerdidas tbody td {
 
     padding: 12px;
 
     font-size: 14px;
+
+    border-bottom: 1px solid #e5e7eb;
 }
 
 
-table.dataTable tbody tr {
+#tablaPerdidas tbody tr {
 
     transition: 0.2s;
 }
 
 
-table.dataTable tbody tr:hover {
+#tablaPerdidas tbody tr:hover {
 
     background: #eff6ff;
-}
-
-
-/* =========================================
-   DATATABLES CONTROLS
-========================================= */
-
-.dataTables_wrapper .dataTables_filter input {
-
-    border-radius: 10px;
-
-    border: 1px solid #cbd5e1;
-
-    padding: 6px 10px;
-
-    margin-left: 8px;
-}
-
-
-.dataTables_wrapper .dataTables_length select {
-
-    border-radius: 10px;
-
-    border: 1px solid #cbd5e1;
-
-    padding: 5px;
-}
-
-
-.dataTables_wrapper .dataTables_paginate .paginate_button {
-
-    border-radius: 8px !important;
-
-    margin: 3px;
-
-    transition: 0.3s;
-}
-
-
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-
-    background: #2563eb !important;
-
-    color: white !important;
-
-    border: none !important;
 }
 
 
@@ -474,5 +440,13 @@ footer {
     .btn-sidebar {
 
         text-align: center;
+    }
+
+    #tablaPerdidas thead th,
+    #tablaPerdidas tbody td {
+
+        font-size: 12px;
+
+        padding: 10px;
     }
 }

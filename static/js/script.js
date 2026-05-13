@@ -2,7 +2,6 @@ let chart1
 let chart2
 let chart3
 let chart4
-let tabla
 
 
 // =====================================
@@ -51,140 +50,270 @@ async function cargarDashboard() {
     const responseKPIS = await fetch(url('kpis'))
     const kpis = await responseKPIS.json()
 
-    document.getElementById('gananciaTotal').innerText = kpis.ganancia_total
-    document.getElementById('perdidaTotal').innerText = kpis.perdida_total
-    document.getElementById('productosPerdida').innerText = kpis.productos_perdida
-    document.getElementById('descuentoPromedio').innerText = kpis.descuento_promedio
+    document.getElementById('gananciaTotal').innerText =
+        kpis.ganancia_total
+
+    document.getElementById('perdidaTotal').innerText =
+        kpis.perdida_total
+
+    document.getElementById('productosPerdida').innerText =
+        kpis.productos_perdida
+
+    document.getElementById('descuentoPromedio').innerText =
+        kpis.descuento_promedio
 
 
     // =====================================
     // GRAFICO 1
     // =====================================
 
-    const chart1Data = await (await fetch(url('chart1'))).json()
+    const chart1Data =
+        await (await fetch(url('chart1'))).json()
 
     if (chart1) chart1.destroy()
 
-    chart1 = new Chart(document.getElementById('chart1'), {
-        type: 'bar',
-        data: {
-            labels: chart1Data.labels,
-            datasets: [{
-                label: 'Ganancia',
-                data: chart1Data.values,
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true
+    chart1 = new Chart(
+        document.getElementById('chart1'),
+        {
+            type: 'bar',
+
+            data: {
+
+                labels: chart1Data.labels,
+
+                datasets: [{
+
+                    label: 'Ganancia',
+
+                    data: chart1Data.values,
+
+                    borderWidth: 1
+
+                }]
+            },
+
+            options: {
+
+                responsive: true
+
+            }
         }
-    })
+    )
 
 
     // =====================================
     // GRAFICO 2
     // =====================================
 
-    const chart2Data = await (await fetch(url('chart2'))).json()
+    const chart2Data =
+        await (await fetch(url('chart2'))).json()
 
     if (chart2) chart2.destroy()
 
-    chart2 = new Chart(document.getElementById('chart2'), {
-        type: 'pie',
-        data: {
-            labels: chart2Data.labels,
-            datasets: [{
-                data: chart2Data.values
-            }]
-        },
-        options: {
-            responsive: true
+    chart2 = new Chart(
+        document.getElementById('chart2'),
+        {
+            type: 'pie',
+
+            data: {
+
+                labels: chart2Data.labels,
+
+                datasets: [{
+
+                    data: chart2Data.values
+
+                }]
+            },
+
+            options: {
+
+                responsive: true
+
+            }
         }
-    })
+    )
 
 
     // =====================================
     // GRAFICO 3
     // =====================================
 
-    const chart3Data = await (await fetch(url('chart3'))).json()
+    const chart3Data =
+        await (await fetch(url('chart3'))).json()
 
     if (chart3) chart3.destroy()
 
-    chart3 = new Chart(document.getElementById('chart3'), {
-        type: 'line',
-        data: {
-            labels: chart3Data.labels,
-            datasets: [{
-                label: 'Descuento',
-                data: chart3Data.values,
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true
+    chart3 = new Chart(
+        document.getElementById('chart3'),
+        {
+            type: 'line',
+
+            data: {
+
+                labels: chart3Data.labels,
+
+                datasets: [{
+
+                    label: 'Descuento',
+
+                    data: chart3Data.values,
+
+                    borderWidth: 2
+
+                }]
+            },
+
+            options: {
+
+                responsive: true
+
+            }
         }
-    })
+    )
 
 
     // =====================================
     // GRAFICO 4
     // =====================================
 
-    const chart4Data = await (await fetch(url('chart4'))).json()
+    const chart4Data =
+        await (await fetch(url('chart4'))).json()
 
     if (chart4) chart4.destroy()
 
-    chart4 = new Chart(document.getElementById('chart4'), {
-        type: 'bar',
-        data: {
-            labels: chart4Data.labels,
-            datasets: [{
-                label: 'Pérdida',
-                data: chart4Data.values,
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            indexAxis: 'y'
+    chart4 = new Chart(
+        document.getElementById('chart4'),
+        {
+            type: 'bar',
+
+            data: {
+
+                labels: chart4Data.labels,
+
+                datasets: [{
+
+                    label: 'Pérdida',
+
+                    data: chart4Data.values,
+
+                    borderWidth: 1
+
+                }]
+            },
+
+            options: {
+
+                responsive: true,
+
+                indexAxis: 'y'
+
+            }
         }
-    })
+    )
 
 
     // =====================================
     // TABLA
     // =====================================
 
-    const tableData = await (await fetch(url('table'))).json()
+    const tableData =
+        await (await fetch(url('table'))).json()
 
-    if (tabla) tabla.destroy()
+    const tbody =
+        document.querySelector('#tablaPerdidas tbody')
 
-    $('#tablaPerdidas tbody').empty()
+    tbody.innerHTML = ''
 
-    tabla = $('#tablaPerdidas').DataTable({
-        data: tableData,
-        columns: [
-            { data: 'producto' },
-            { data: 'categoria' },
-            { data: 'subcategoria' },
-            { data: 'region' },
-            { data: 'ventas' },
-            { data: 'descuento' },
-            { data: 'ganancia' }
-        ]
+
+    tableData.forEach(item => {
+
+        const fila = document.createElement('tr')
+
+        fila.innerHTML = `
+
+            <td>${item.producto}</td>
+            <td>${item.categoria}</td>
+            <td>${item.subcategoria}</td>
+            <td>${item.region}</td>
+            <td>${item.ventas}</td>
+            <td>${item.descuento}</td>
+            <td>${item.ganancia}</td>
+
+        `
+
+        tbody.appendChild(fila)
+
+    })
+
+
+    // =====================================
+    // APLICAR BUSQUEDA SI YA EXISTE TEXTO
+    // =====================================
+
+    filtrarTabla()
+}
+
+
+// =====================================
+// BUSCADOR TABLA
+// =====================================
+
+function filtrarTabla() {
+
+    const buscador =
+        document.getElementById('buscadorTabla')
+
+    const texto =
+        buscador.value.toLowerCase()
+
+    const filas =
+        document.querySelectorAll(
+            '#tablaPerdidas tbody tr'
+        )
+
+    filas.forEach(fila => {
+
+        const contenido =
+            fila.textContent.toLowerCase()
+
+        fila.style.display =
+            contenido.includes(texto)
+                ? ''
+                : 'none'
+
     })
 }
+
+
+// =====================================
+// EVENTO BUSCADOR
+// =====================================
+
+document
+    .getElementById('buscadorTabla')
+    .addEventListener('keyup', filtrarTabla)
 
 
 // =====================================
 // EVENTOS FILTROS
 // =====================================
 
-document.getElementById('region').addEventListener('change', cargarDashboard)
-document.getElementById('categoria').addEventListener('change', cargarDashboard)
-document.getElementById('subcategoria').addEventListener('change', cargarDashboard)
-document.getElementById('descuento').addEventListener('change', cargarDashboard)
+document
+    .getElementById('region')
+    .addEventListener('change', cargarDashboard)
+
+document
+    .getElementById('categoria')
+    .addEventListener('change', cargarDashboard)
+
+document
+    .getElementById('subcategoria')
+    .addEventListener('change', cargarDashboard)
+
+document
+    .getElementById('descuento')
+    .addEventListener('change', cargarDashboard)
 
 
 // =====================================
